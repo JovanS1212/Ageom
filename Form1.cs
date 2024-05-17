@@ -13,41 +13,67 @@ namespace AgeomProj
 {
     public partial class frmUvod : Form
     {
-        double Levi, Gornji;  
+        Point gornjiLevi;
+        //int strKvadrat = 20;
+        int duzinaStr;
         public frmUvod()
         {
             InitializeComponent();
         }
-        public (double, double) LeviGornji()
+        public void GornjiLevi()
         {
-            double x = -1, y = -1;
-            if (this.Width <= this.Height) 
+            Point gL = new Point();
+            if (this.Width >= this.Height) 
             {
-                x = (this.Height - this.Width) / 2;
-                y = 0;
-                return (x, y);
+                gL.X = (this.Width - this.Height) / 2;
+                gL.Y = 0;
+                gornjiLevi = gL;
+                duzinaStr = this.Height;
             }
             else
             {
-                x = 0;
-                y = (this.Height - this.Width) / 2; 
-                return (x, y);
+                gL.X = 0;
+                gL.Y = (this.Height - this.Width) / 2; 
+                gornjiLevi = gL;
+                duzinaStr = this.Width;
             }
         }
         private void frmUvod_Load(object sender, EventArgs e)
         {
-            //80 kvadratica vodoravno, 45 horizontalno
-            (Levi, Gornji) = LeviGornji();
+            GornjiLevi();
         }
 
         private void frmUvod_Paint(object sender, PaintEventArgs e)
         {
-
+            int strKvad = duzinaStr/20;
+            Pen olovka = new Pen(Color.FromArgb(192,192,192),1);
+            Point gornja = new Point();
+            gornja.X = gornjiLevi.X;
+            gornja.Y = 0;
+            Point donja = new Point();
+            donja.X = gornjiLevi.X;
+            donja.Y = this.Height;
+            Point leva = new Point();
+            leva.X = gornjiLevi.X;
+            leva.Y = 0;
+            Point desna = new Point();
+            desna.X = leva.X + duzinaStr;
+            desna.Y = 0;
+            for (int i = 0;i < duzinaStr/strKvad; i++)
+            {
+                e.Graphics.DrawLine(olovka,gornja,donja);
+                e.Graphics.DrawLine(olovka, leva, desna);
+                gornja.X += strKvad;
+                donja.X += strKvad;
+                leva.Y += strKvad;
+                desna.Y += strKvad;
+            }
         }
 
         private void frmUvod_ResizeEnd(object sender, EventArgs e)
         {
-            (Levi, Gornji) = LeviGornji();
+            GornjiLevi();
+            this.Refresh();
         }
     }
 }
