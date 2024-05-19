@@ -14,8 +14,9 @@ namespace AgeomProj
     public partial class frmUvod : Form
     {
         Point gornjiLevi;
-        //int strKvadrat = 20;
         int duzinaStr;
+        bool pocetniMeni;
+        Point centar;
         public frmUvod()
         {
             InitializeComponent();
@@ -37,16 +38,19 @@ namespace AgeomProj
                 gornjiLevi = gL;
                 duzinaStr = this.Width;
             }
+            centar.X = gornjiLevi.X + duzinaStr/2;
+            centar.Y = gornjiLevi.Y + duzinaStr / 2;
         }
         private void frmUvod_Load(object sender, EventArgs e)
         {
             GornjiLevi();
+            pocetniMeni = true;
         }
 
         private void frmUvod_Paint(object sender, PaintEventArgs e)
         {
             int strKvad = duzinaStr/20;
-            Pen olovka = new Pen(Color.FromArgb(192,192,192),1);
+            Pen pozadina = new Pen(Color.FromArgb(192,192,192),1);
             Point gornja = new Point();
             gornja.X = gornjiLevi.X;
             gornja.Y = 0;
@@ -61,12 +65,27 @@ namespace AgeomProj
             desna.Y = 0;
             for (int i = 0;i < duzinaStr/strKvad; i++)
             {
-                e.Graphics.DrawLine(olovka,gornja,donja);
-                e.Graphics.DrawLine(olovka, leva, desna);
+                e.Graphics.DrawLine(pozadina,gornja,donja);
+                e.Graphics.DrawLine(pozadina, leva, desna);
                 gornja.X += strKvad;
                 donja.X += strKvad;
                 leva.Y += strKvad;
                 desna.Y += strKvad;
+            }
+            if(pocetniMeni)
+            {
+                Point a = new Point();//a je gornja tacka dugmeta igraj, b je donja
+                Point b = new Point();
+                a.X = centar.X - 5 * strKvad;
+                a.Y = centar.Y - 3 * strKvad;
+                b.X = centar.X - 5 * strKvad;
+                b.Y = centar.Y + 2 * strKvad;
+                Pen trougaoIgraj = new Pen(Color.Black, 5);
+                Point[] crtanjeTrougao = { a, b, centar };
+                e.Graphics.DrawPolygon(trougaoIgraj, crtanjeTrougao);
+                lblIgraj.Font = new Font("Georgia", (int)(strKvad));
+                lblIgraj.Left = centar.X + 5;
+                lblIgraj.Top = centar.Y - lblIgraj.Width/5;
             }
         }
 
@@ -80,6 +99,11 @@ namespace AgeomProj
         {
             GornjiLevi();
             this.Refresh();
+        }
+
+        private void lblIgraj_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

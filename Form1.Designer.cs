@@ -28,13 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.lblIgraj = new System.Windows.Forms.Label();
             this.SuspendLayout();
+            // 
+            // lblIgraj
+            // 
+            this.lblIgraj.AutoSize = true;
+            this.lblIgraj.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIgraj.Location = new System.Drawing.Point(436, 243);
+            this.lblIgraj.Name = "lblIgraj";
+            this.lblIgraj.Size = new System.Drawing.Size(73, 25);
+            this.lblIgraj.TabIndex = 0;
+            this.lblIgraj.Text = "IGRAJ";
+            this.lblIgraj.Click += new System.EventHandler(this.lblIgraj_Click);
             // 
             // frmUvod
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1030, 630);
+            this.Controls.Add(this.lblIgraj);
             this.Name = "frmUvod";
             this.Text = "Ageom";
             this.Load += new System.EventHandler(this.frmUvod_Load);
@@ -42,10 +55,13 @@
             this.SizeChanged += new System.EventHandler(this.frmUvod_SizeChanged);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.frmUvod_Paint);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Label lblIgraj;
     }
 }
 
