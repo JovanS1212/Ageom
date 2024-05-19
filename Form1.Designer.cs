@@ -39,6 +39,7 @@
             this.Text = "Ageom";
             this.Load += new System.EventHandler(this.frmUvod_Load);
             this.ResizeEnd += new System.EventHandler(this.frmUvod_ResizeEnd);
+            this.SizeChanged += new System.EventHandler(this.frmUvod_SizeChanged);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.frmUvod_Paint);
             this.ResumeLayout(false);
 

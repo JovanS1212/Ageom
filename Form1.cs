@@ -75,5 +75,11 @@ namespace AgeomProj
             GornjiLevi();
             this.Refresh();
         }
+
+        private void frmUvod_SizeChanged(object sender, EventArgs e)
+        {
+            GornjiLevi();
+            this.Refresh();
+        }
     }
 }
