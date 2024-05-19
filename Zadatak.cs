@@ -12,14 +12,12 @@ namespace AgeomProj
     internal abstract class Zadatak
     {
         public string Pitanje {  get; }
-        public TimeSpan Vreme { get; }
+        public TimeSpan VremeZadatak { get; }
         public abstract double[] Odgovor { get; set; }
-        public int TrenutniBrojSrca { get; set; } = 3;
-        public double TrenutniBrojZvezda { get; set; } = 3;
         public Zadatak(string pitanje,TimeSpan vreme, double[]odgovor) 
         { 
             Pitanje = pitanje;
-            Vreme = vreme;
+            VremeZadatak = vreme;
             Odgovor = odgovor;
         }
         public void ZapocniOdbrojavanje() 
@@ -38,6 +36,5 @@ namespace AgeomProj
         }
         public void PauzirajOdbrojavanje()
         { }
-        public int GubiZivot() {return TrenutniBrojSrca--;}
     }
 }
