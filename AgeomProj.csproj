@@ -52,8 +52,11 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="ICrtanje.cs" />
+    <Compile Include="IElementSZ.cs" />
     <Compile Include="KvizZadatak.cs" />
     <Compile Include="Nivo.cs" />
+    <Compile Include="Prava.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SlobodanZadatak.cs" />

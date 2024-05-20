@@ -13,8 +13,8 @@ namespace AgeomProj
     {
         public string Pitanje {  get; }
         public TimeSpan VremeZadatak { get; }
-        public abstract double[] Odgovor { get; set; }
-        public Zadatak(string pitanje,TimeSpan vreme, double[]odgovor) 
+        public string Odgovor { get; set; }
+        public Zadatak(string pitanje,TimeSpan vreme, string odgovor) 
         { 
             Pitanje = pitanje;
             VremeZadatak = vreme;

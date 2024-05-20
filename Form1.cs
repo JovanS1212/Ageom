@@ -4,19 +4,19 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 namespace AgeomProj
 {
     public partial class frmUvod : Form
     {
-        Point gornjiLevi;
-        int duzinaStr;
+        public Point gornjiLevi;
+        public int duzinaStr;
         bool pocetniMeni;
-        Point centar;
+        public Point centar;
         public frmUvod()
         {
             InitializeComponent();
@@ -30,6 +30,8 @@ namespace AgeomProj
                 gL.Y = 0;
                 gornjiLevi = gL;
                 duzinaStr = this.Height;
+                centar.X = gornjiLevi.X + this.Height / 2;
+                centar.Y = gornjiLevi.Y + this.Height / 2;
             }
             else
             {
@@ -37,16 +39,26 @@ namespace AgeomProj
                 gL.Y = (this.Height - this.Width) / 2; 
                 gornjiLevi = gL;
                 duzinaStr = this.Width;
+                centar.X = gornjiLevi.X + this.Width / 2;
+                centar.Y = gornjiLevi.Y + this.Width / 2;
             }
-            centar.X = gornjiLevi.X + duzinaStr/2;
-            centar.Y = gornjiLevi.Y + duzinaStr / 2;
         }
         private void frmUvod_Load(object sender, EventArgs e)
         {
             GornjiLevi();
             pocetniMeni = true;
         }
-
+        public void VeLicinaLokacijaSvega()
+        {
+            lblIgraj.Font = new Font("Georgia", (int)(duzinaStr/20));
+            lblIgraj.Left = centar.X + 5;
+            lblIgraj.Top = centar.Y - lblIgraj.Width / 5;
+            btnFormule.Width = (int)(3 * duzinaStr / 20);
+            btnFormule.Height = (int)(1.5*duzinaStr/20);
+            btnFormule.Left = centar.X + duzinaStr/2 - btnFormule.Width;
+            btnFormule.Top = centar.Y + (int)(duzinaStr/2.5) - btnFormule.Height;  
+            btnFormule.Font = new Font("Georgia", (int)(duzinaStr / 45));
+        }
         private void frmUvod_Paint(object sender, PaintEventArgs e)
         {
             int strKvad = duzinaStr/20;
@@ -83,9 +95,7 @@ namespace AgeomProj
                 Pen trougaoIgraj = new Pen(Color.Black, 5);
                 Point[] crtanjeTrougao = { a, b, centar };
                 e.Graphics.DrawPolygon(trougaoIgraj, crtanjeTrougao);
-                lblIgraj.Font = new Font("Georgia", (int)(strKvad));
-                lblIgraj.Left = centar.X + 5;
-                lblIgraj.Top = centar.Y - lblIgraj.Width/5;
+                VeLicinaLokacijaSvega();
             }
         }
 
