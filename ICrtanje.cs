@@ -4,12 +4,13 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace AgeomProj
 {
     internal interface ICrtanje
     {
         PointF PozicijaEl { get; }
-        void Nacrtaj(Graphics g);
+        void Nacrtaj(Graphics g, Form forma);
     }
 }

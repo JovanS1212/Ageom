@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace AgeomProj
 {
@@ -17,7 +18,7 @@ namespace AgeomProj
         public double A { get; set; }
         public double B { get; set; }
         public double C { get; set; }
-        public void Nacrtaj(Graphics g)
+        public void Nacrtaj(Graphics g, frmUvod forma)
         {
             PointF gornji = new PointF();
             gornji.Y = 0;
