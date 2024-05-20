@@ -8,9 +8,10 @@ using System.Windows.Forms;
 
 namespace AgeomProj
 {
+
     internal interface ICrtanje
     {
         PointF PozicijaEl { get; }
-        void Nacrtaj(Graphics g, Form forma);
+        void Nacrtaj(Graphics g);
     }
 }

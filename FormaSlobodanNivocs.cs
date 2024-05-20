@@ -16,7 +16,9 @@ namespace AgeomProj
         {
             InitializeComponent();
         }
-
+        public Point gornjiLevi;
+        public int duzinaStr;
+        public Point centar;
         private void frmSlobodanNivo_Load(object sender, EventArgs e)
         {
 
