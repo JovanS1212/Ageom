@@ -17,6 +17,8 @@ namespace AgeomProj
         public int duzinaStr;
         bool pocetniMeni;
         public Point centar;
+        Point a;//a je gornja tacka trougla igraj, b je donja
+        Point b;
         public frmUvod()
         {
             InitializeComponent();
@@ -61,8 +63,9 @@ namespace AgeomProj
         }
         private void frmUvod_Paint(object sender, PaintEventArgs e)
         {
+            VeLicinaLokacijaSvega();
             int strKvad = duzinaStr/20;
-            Pen pozadina = new Pen(Color.FromArgb(192,192,192),1);
+            Pen pozadina = new Pen(Color.FromArgb(192, 192, 192), 1);
             Point gornja = new Point();
             gornja.X = gornjiLevi.X;
             gornja.Y = 0;
@@ -84,10 +87,18 @@ namespace AgeomProj
                 leva.Y += strKvad;
                 desna.Y += strKvad;
             }
-            if(pocetniMeni)
+            pozadina.Color = Color.Black;
+            pozadina.Width = 5;
+            e.Graphics.DrawLine(pozadina, gornjiLevi, new Point(gornjiLevi.X + duzinaStr,gornjiLevi.Y));//gornja granica
+            e.Graphics.DrawLine(pozadina, new Point(gornjiLevi.X, this.Height-42), new Point(gornjiLevi.X + duzinaStr, this.Height-42));//donja granica
+            e.Graphics.DrawLine(pozadina, gornjiLevi, new Point(gornjiLevi.X, this.Height));//leva granica
+            e.Graphics.DrawLine(pozadina, new Point(gornjiLevi.X + duzinaStr, 0), new Point(gornjiLevi.X + duzinaStr, this.Height));//desna granica
+            if (pocetniMeni)
             {
-                Point a = new Point();//a je gornja tacka dugmeta igraj, b je donja
-                Point b = new Point();
+                lblIgraj.Visible = true;
+                lblIgraj.Enabled = true;
+                btnFormule.Visible = true;
+                btnFormule.Enabled = true;
                 a.X = centar.X - 5 * strKvad;
                 a.Y = centar.Y - 3 * strKvad;
                 b.X = centar.X - 5 * strKvad;
@@ -95,7 +106,13 @@ namespace AgeomProj
                 Pen trougaoIgraj = new Pen(Color.Black, 5);
                 Point[] crtanjeTrougao = { a, b, centar };
                 e.Graphics.DrawPolygon(trougaoIgraj, crtanjeTrougao);
-                VeLicinaLokacijaSvega();
+            }
+            else
+            {
+                lblIgraj.Visible = false;
+                lblIgraj.Enabled = false;
+                btnFormule.Visible = false;
+                btnFormule.Enabled = false;
             }
         }
 
@@ -113,7 +130,29 @@ namespace AgeomProj
 
         private void lblIgraj_Click(object sender, EventArgs e)
         {
-
+            pocetniMeni = false;
+            this.Refresh();
+        }
+        public decimal PovrsinaTrougla(Point a, Point b, Point c)
+        {
+            return Math.Round(Convert.ToDecimal(0.5*Math.Abs(a.X*(b.Y - c.Y) + b.X * (c.Y - a.Y) + c.X * (a.Y - b.Y))),2);
+        }
+        private void frmUvod_MouseClick(object sender, MouseEventArgs e)
+        {
+            int ha = -a.X;
+            int stra = b.Y - a.Y;
+            decimal povrsinaGlavnog = Math.Round(Convert.ToDecimal(stra * ha) / 2, 2);
+            Point m = new Point();
+            m.X = e.X;
+            m.Y = e.Y;
+            decimal p1 = PovrsinaTrougla(a, b, m);
+            decimal p2 = PovrsinaTrougla(a, centar, m);
+            decimal p3 = PovrsinaTrougla(centar, b, m);
+            if (povrsinaGlavnog == (p1 + p2 + p3))
+            {
+                pocetniMeni = false;
+                this.Refresh();
+            }
         }
     }
 }

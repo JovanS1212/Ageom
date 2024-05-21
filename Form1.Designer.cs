@@ -66,6 +66,7 @@
             this.ResizeEnd += new System.EventHandler(this.frmUvod_ResizeEnd);
             this.SizeChanged += new System.EventHandler(this.frmUvod_SizeChanged);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.frmUvod_Paint);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.frmUvod_MouseClick);
             this.ResumeLayout(false);
             this.PerformLayout();
 
