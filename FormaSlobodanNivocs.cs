@@ -21,7 +21,7 @@ namespace AgeomProj
         public Point centar;
         private void frmSlobodanNivo_Load(object sender, EventArgs e)
         {
-
+       
         }
     }
 }

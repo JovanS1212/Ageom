@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -32,7 +33,7 @@ namespace AgeomProj
                 int remainingSeconds = ukupnoSek % 60;
                 Thread.Sleep(1000);
                 ukupnoSek--;
-            }*/
+            }*/ //ubaci u formu ovu metodu
         }
         public void PauzirajOdbrojavanje()
         { }

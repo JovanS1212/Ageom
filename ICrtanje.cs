@@ -12,6 +12,6 @@ namespace AgeomProj
     internal interface ICrtanje
     {
         PointF PozicijaEl { get; }
-        void Nacrtaj(Graphics g);
+        void Nacrtaj(Graphics g, Point centar, int strKvad);
     }
 }

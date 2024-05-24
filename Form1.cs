@@ -114,6 +114,12 @@ namespace AgeomProj
                 btnFormule.Visible = false;
                 btnFormule.Enabled = false;
             }
+            PointF c = new PointF();
+            c.X = 0;
+            c.Y = 0;
+            Krug k = new Krug(c, 5);
+            k.Nacrtaj(e.Graphics,centar,strKvad);
+            Prava p = new Prava(c, 0, -6);
         }
 
         private void frmUvod_ResizeEnd(object sender, EventArgs e)
