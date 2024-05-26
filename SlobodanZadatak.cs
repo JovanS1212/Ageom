@@ -7,13 +7,17 @@ using System.Threading.Tasks;
 namespace AgeomProj
 {
     public enum FormaResenja {broj, pravaEks, pravaImp, krug, elipsaHiperbola, parabola }
-    internal class SlobodanZadatak : Zadatak
+    internal class SlobodanZadatak : Zadatak, IVrsteZadataka
     {
-        public string Hint { get; set; }
+        
         public FormaResenja FormaResenja {  get; set; }
-        public SlobodanZadatak(string pitanje, TimeSpan vreme, string odgovor, FormaResenja formaResenja) : base(pitanje, vreme, odgovor)
+        
+        public string Hint { get; set; }
+
+        public SlobodanZadatak(string pitanje, TimeSpan vreme,string hint, string odgovor, FormaResenja formaResenja) : base(pitanje, vreme, odgovor)
         {
             FormaResenja = formaResenja;
+            Hint = hint;
         }
     }
 }

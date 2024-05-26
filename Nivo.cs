@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AgeomProj
 {
-    internal class Nivo
+    internal class Nivo<T> where T : IVrsteZadataka
     {
         public int TrenutniBrojSrca { get; set; } = 3;
         public double TrenutniBrojZvezda { get; set; } = 3;
@@ -14,16 +14,17 @@ namespace AgeomProj
         public TimeSpan VremeNivo 
         {  get
             {
+                Zadatak[] zadaci = Zadaci as Zadatak[];
                 TimeSpan ukupno = TimeSpan.Zero;
-                for (int i = 0; i < Zadaci.Length; i++)
+                for (int i = 0; i < zadaci.Length; i++)
                 {
-                    ukupno += Zadaci[i].VremeZadatak;
+                    ukupno += zadaci[i].VremeZadatak;
                 }
                 return ukupno;
             } 
         }
-        public Zadatak[] Zadaci { get; set; }
-        public Nivo(int trenutniBrojSrca, double trenutniBrojZvezda, int tezina, Zadatak[] zadaci)
+        public T[] Zadaci { get; set; }
+        public Nivo(int trenutniBrojSrca, double trenutniBrojZvezda, int tezina, T[] zadaci)
         {
             TrenutniBrojSrca = trenutniBrojSrca;
             TrenutniBrojZvezda = trenutniBrojZvezda;

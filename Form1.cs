@@ -117,9 +117,13 @@ namespace AgeomProj
             PointF c = new PointF();
             c.X = 0;
             c.Y = 0;
-            Krug k = new Krug(c, 5);
-            k.Nacrtaj(e.Graphics,centar,strKvad);
-            Prava p = new Prava(c, 0, -6);
+            //Krug k = new Krug(c, 5);
+            //k.Nacrtaj(e.Graphics,centar,strKvad);
+            //Prava p = new Prava(c, 0, -6);
+            SlobodanZadatak joj = new SlobodanZadatak(null, new TimeSpan(0,0,0), " ", " ", FormaResenja.broj);
+            SlobodanZadatak[] lele = new SlobodanZadatak[10];
+            Nivo<SlobodanZadatak> n = new Nivo<SlobodanZadatak>(0, 0, 0, lele);
+         
         }
 
         private void frmUvod_ResizeEnd(object sender, EventArgs e)
