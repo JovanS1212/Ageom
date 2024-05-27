@@ -10,10 +10,10 @@ namespace AgeomProj
     internal class Krug : IElementSZ
     {
         public PointF PozicijaEl { get; set; }
-        public double R { get; set; }
+        public float R { get; set; }
         public SlobodanZadatak SlobodanZadatak { get; set; }
 
-        public Krug(SlobodanZadatak slobodanZadatak,PointF centar, double r) 
+        public Krug(SlobodanZadatak slobodanZadatak,PointF centar, float r) 
         {
             SlobodanZadatak = slobodanZadatak;
             PozicijaEl = centar;
@@ -22,9 +22,9 @@ namespace AgeomProj
         public void Nacrtaj(Graphics g, Point centar, int strKvad)
         {
             Pen olovka = new Pen(Color.Black, 3);
-            float x = Convert.ToSingle(strKvad*PozicijaEl.X + centar.X - strKvad*R);
-            float y = Convert.ToSingle(strKvad*PozicijaEl.Y + centar.Y - strKvad*R);
-            g.DrawEllipse(olovka, x, y, 2*Convert.ToSingle(R)*strKvad, 2*Convert.ToSingle(R)*strKvad);
+            float x = strKvad * PozicijaEl.X + centar.X - strKvad * R;
+            float y = strKvad * PozicijaEl.Y + centar.Y - strKvad * R;
+            g.DrawEllipse(olovka, x, y, 2*R*strKvad, 2*R*strKvad);
         }
     }
 }

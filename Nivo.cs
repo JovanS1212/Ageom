@@ -9,7 +9,7 @@ namespace AgeomProj
     internal class Nivo<T> where T : IVrsteZadataka
     {
         public int TrenutniBrojSrca { get; set; } = 3;
-        public double TrenutniBrojZvezda { get; set; } = 3;
+        public float TrenutniBrojZvezda { get; set; } = 3;
         public int Tezina { get; set; } 
         public TimeSpan VremeNivo 
         {  get
@@ -24,7 +24,7 @@ namespace AgeomProj
             } 
         }
         public T[] Zadaci { get; set; }
-        public Nivo(int trenutniBrojSrca, double trenutniBrojZvezda, int tezina, T[] zadaci)
+        public Nivo(int trenutniBrojSrca, float trenutniBrojZvezda, int tezina, T[] zadaci)
         {
             TrenutniBrojSrca = trenutniBrojSrca;
             TrenutniBrojZvezda = trenutniBrojZvezda;
