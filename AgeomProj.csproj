@@ -66,6 +66,7 @@
     <Compile Include="Prava.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RadnaPovrsina.cs" />
     <Compile Include="SlobodanZadatak.cs" />
     <Compile Include="IVrsteZadataka.cs" />
     <Compile Include="Zadatak.cs" />

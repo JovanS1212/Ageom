@@ -23,29 +23,9 @@ namespace AgeomProj
         {
             InitializeComponent();
         }
-        public void IzracunajGornjiLevi()//RESITI PROBLEM SA RESIZEOM
-        {
-            Point gL = new Point();
-            if (this.Width >= this.Height) 
-            {
-                gL.X = (this.ClientSize.Width - this.ClientSize.Height) / 2;
-                gL.Y = 0;
-                gornjiLevi = gL;
-                duzinaStr = this.ClientSize.Height - this.ClientSize.Height % 20;
-            }
-            else
-            {
-                gL.X = 0;
-                gL.Y = (this.ClientSize.Height - this.ClientSize.Width) / 2; 
-                gornjiLevi = gL;
-                duzinaStr = this.ClientSize.Width - this.ClientSize.Width % 20;
-            }
-            centar.X = gornjiLevi.X + duzinaStr / 2;
-            centar.Y = gornjiLevi.Y + duzinaStr / 2;
-        }
         private void frmUvod_Load(object sender, EventArgs e)
         {
-            IzracunajGornjiLevi();
+            RadnaPovrsina.IzracunajPolja(this,out gornjiLevi,out centar,out duzinaStr);
             pocetniMeni = true;
         }
         public void VeLicinaLokacijaSvega()
@@ -59,43 +39,11 @@ namespace AgeomProj
             btnFormule.Top = centar.Y + (int)(duzinaStr/2.5) - btnFormule.Height;  
             btnFormule.Font = new Font("Georgia", (int)(duzinaStr / 45));
         }
-        private void ucitajPozadinu(Graphics g)
-        {
-            int strKvad = duzinaStr / 20;
-            Pen pozadina = new Pen(Color.FromArgb(192, 192, 192), 1);
-            Point gornja = new Point();
-            gornja.X = gornjiLevi.X;
-            gornja.Y = gornjiLevi.Y;
-            Point donja = new Point();
-            donja.X = gornjiLevi.X;
-            donja.Y = gornjiLevi.Y+duzinaStr;
-            Point leva = new Point();
-            leva.X = gornjiLevi.X;
-            leva.Y = gornjiLevi.Y;
-            Point desna = new Point();
-            desna.X = leva.X + duzinaStr;
-            desna.Y = gornjiLevi.Y;
-            for (int i = 0; i < duzinaStr / strKvad; i++)
-            {
-                g.DrawLine(pozadina, gornja, donja);
-                g.DrawLine(pozadina, leva, desna);
-                gornja.X += strKvad;
-                donja.X += strKvad;
-                leva.Y += strKvad;
-                desna.Y += strKvad;
-            }
-            pozadina.Color = Color.Black;
-            pozadina.Width = 5;
-            g.DrawLine(pozadina, gornjiLevi, new Point(gornjiLevi.X + duzinaStr, gornjiLevi.Y));//gornja granica
-            g.DrawLine(pozadina, new Point(gornjiLevi.X, gornjiLevi.Y + duzinaStr), new Point(gornjiLevi.X + duzinaStr, gornjiLevi.Y + duzinaStr));//donja granica
-            g.DrawLine(pozadina, gornjiLevi, new Point(gornjiLevi.X, gornjiLevi.Y + duzinaStr));//leva granica
-            g.DrawLine(pozadina, new Point(gornjiLevi.X + duzinaStr, gornjiLevi.Y), new Point(gornjiLevi.X + duzinaStr, gornjiLevi.Y + duzinaStr));//desna granica
-        }
         private void frmUvod_Paint(object sender, PaintEventArgs e)
         {
             int strKvad = duzinaStr / 20;
             VeLicinaLokacijaSvega();
-            ucitajPozadinu(e.Graphics);
+            RadnaPovrsina.ucitajPozadinu(e.Graphics, this);
             if (pocetniMeni)
             {
                 lblIgraj.Visible = true;
@@ -132,13 +80,13 @@ namespace AgeomProj
 
         private void frmUvod_ResizeEnd(object sender, EventArgs e)
         {
-            IzracunajGornjiLevi();
+            RadnaPovrsina.IzracunajPolja(this, out gornjiLevi, out centar, out duzinaStr);
             this.Refresh();
         }
 
         private void frmUvod_SizeChanged(object sender, EventArgs e)
         {
-            IzracunajGornjiLevi();
+            RadnaPovrsina.IzracunajPolja(this, out gornjiLevi, out centar, out duzinaStr);
             this.Refresh();
         }
 
@@ -153,7 +101,8 @@ namespace AgeomProj
         }
         private void frmUvod_MouseClick(object sender, MouseEventArgs e)
         {
-            int ha = -a.X;
+            int strKvad = duzinaStr / 20;//PODESITI STRKVADRATA U PROMENLJIVE
+            int ha = centar.X-a.X*strKvad;
             int stra = b.Y - a.Y;
             decimal povrsinaGlavnog = Math.Round(Convert.ToDecimal(stra * ha) / 2, 2);
             Point m = new Point();
