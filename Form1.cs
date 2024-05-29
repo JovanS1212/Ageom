@@ -28,22 +28,20 @@ namespace AgeomProj
             Point gL = new Point();
             if (this.Width >= this.Height) 
             {
-                gL.X = (this.Width - this.Height) / 2;
+                gL.X = (this.ClientSize.Width - this.ClientSize.Height) / 2;
                 gL.Y = 0;
                 gornjiLevi = gL;
-                duzinaStr = this.Height;
-                centar.X = gornjiLevi.X + this.Height / 2;
-                centar.Y = gornjiLevi.Y + this.Height / 2;
+                duzinaStr = this.ClientSize.Height - this.ClientSize.Height % 20;
             }
             else
             {
                 gL.X = 0;
-                gL.Y = (this.Height - this.Width) / 2; 
+                gL.Y = (this.ClientSize.Height - this.ClientSize.Width) / 2; 
                 gornjiLevi = gL;
-                duzinaStr = this.Width;
-                centar.X = gornjiLevi.X + this.Width / 2;
-                centar.Y = gornjiLevi.Y + this.Width / 2;
+                duzinaStr = this.ClientSize.Width - this.ClientSize.Width % 20;
             }
+            centar.X = gornjiLevi.X + duzinaStr / 2;
+            centar.Y = gornjiLevi.Y + duzinaStr / 2;
         }
         private void frmUvod_Load(object sender, EventArgs e)
         {
@@ -71,7 +69,7 @@ namespace AgeomProj
             gornja.Y = 0;
             Point donja = new Point();
             donja.X = gornjiLevi.X;
-            donja.Y = this.Height;
+            donja.Y = duzinaStr;
             Point leva = new Point();
             leva.X = gornjiLevi.X;
             leva.Y = 0;
@@ -90,9 +88,9 @@ namespace AgeomProj
             pozadina.Color = Color.Black;
             pozadina.Width = 5;
             e.Graphics.DrawLine(pozadina, gornjiLevi, new Point(gornjiLevi.X + duzinaStr,gornjiLevi.Y));//gornja granica
-            e.Graphics.DrawLine(pozadina, new Point(gornjiLevi.X, this.Height-42), new Point(gornjiLevi.X + duzinaStr, this.Height-42));//donja granica
-            e.Graphics.DrawLine(pozadina, gornjiLevi, new Point(gornjiLevi.X, this.Height));//leva granica
-            e.Graphics.DrawLine(pozadina, new Point(gornjiLevi.X + duzinaStr, 0), new Point(gornjiLevi.X + duzinaStr, this.Height));//desna granica
+            e.Graphics.DrawLine(pozadina, new Point(gornjiLevi.X, duzinaStr), new Point(gornjiLevi.X + duzinaStr, duzinaStr));//donja granica
+            e.Graphics.DrawLine(pozadina, gornjiLevi, new Point(gornjiLevi.X, duzinaStr));//leva granica
+            e.Graphics.DrawLine(pozadina, new Point(gornjiLevi.X + duzinaStr, 0), new Point(gornjiLevi.X + duzinaStr, duzinaStr));//desna granica
             if (pocetniMeni)
             {
                 lblIgraj.Visible = true;
@@ -120,10 +118,10 @@ namespace AgeomProj
             SlobodanZadatak joj = new SlobodanZadatak(null, new TimeSpan(0, 0, 0), " ", FormaResenja.broj, " ");
             SlobodanZadatak[] lele = new SlobodanZadatak[10];
             Nivo<SlobodanZadatak> n = new Nivo<SlobodanZadatak>(0, 0, 0, lele);
-            //Krug k = new Krug(joj, c, 5);
-            //k.Nacrtaj(e.Graphics,centar,strKvad);
-            //Prava p = new Prava(joj,c, 5, 1);
-            //p.Nacrtaj(e.Graphics, centar, strKvad);
+            Krug k = new Krug(joj, c, 5);
+            k.Nacrtaj(e.Graphics,centar,strKvad);
+            Prava p = new Prava(joj,c, 0, 1);
+            p.Nacrtaj(e.Graphics, centar, strKvad);
 
         }
 
