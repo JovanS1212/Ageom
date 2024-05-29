@@ -23,7 +23,7 @@ namespace AgeomProj
         {
             InitializeComponent();
         }
-        public void GornjiLevi()//RESITI PROBLEM SA RESIZEOM
+        public void IzracunajGornjiLevi()//RESITI PROBLEM SA RESIZEOM
         {
             Point gL = new Point();
             if (this.Width >= this.Height) 
@@ -45,7 +45,7 @@ namespace AgeomProj
         }
         private void frmUvod_Load(object sender, EventArgs e)
         {
-            GornjiLevi();
+            IzracunajGornjiLevi();
             pocetniMeni = true;
         }
         public void VeLicinaLokacijaSvega()
@@ -59,27 +59,26 @@ namespace AgeomProj
             btnFormule.Top = centar.Y + (int)(duzinaStr/2.5) - btnFormule.Height;  
             btnFormule.Font = new Font("Georgia", (int)(duzinaStr / 45));
         }
-        private void frmUvod_Paint(object sender, PaintEventArgs e)
+        private void ucitajPozadinu(Graphics g)
         {
-            VeLicinaLokacijaSvega();
-            int strKvad = duzinaStr/20;
+            int strKvad = duzinaStr / 20;
             Pen pozadina = new Pen(Color.FromArgb(192, 192, 192), 1);
             Point gornja = new Point();
             gornja.X = gornjiLevi.X;
-            gornja.Y = 0;
+            gornja.Y = gornjiLevi.Y;
             Point donja = new Point();
             donja.X = gornjiLevi.X;
-            donja.Y = duzinaStr;
+            donja.Y = gornjiLevi.Y+duzinaStr;
             Point leva = new Point();
             leva.X = gornjiLevi.X;
-            leva.Y = 0;
+            leva.Y = gornjiLevi.Y;
             Point desna = new Point();
             desna.X = leva.X + duzinaStr;
-            desna.Y = 0;
-            for (int i = 0;i < duzinaStr/strKvad; i++)
+            desna.Y = gornjiLevi.Y;
+            for (int i = 0; i < duzinaStr / strKvad; i++)
             {
-                e.Graphics.DrawLine(pozadina,gornja,donja);
-                e.Graphics.DrawLine(pozadina, leva, desna);
+                g.DrawLine(pozadina, gornja, donja);
+                g.DrawLine(pozadina, leva, desna);
                 gornja.X += strKvad;
                 donja.X += strKvad;
                 leva.Y += strKvad;
@@ -87,10 +86,16 @@ namespace AgeomProj
             }
             pozadina.Color = Color.Black;
             pozadina.Width = 5;
-            e.Graphics.DrawLine(pozadina, gornjiLevi, new Point(gornjiLevi.X + duzinaStr,gornjiLevi.Y));//gornja granica
-            e.Graphics.DrawLine(pozadina, new Point(gornjiLevi.X, duzinaStr), new Point(gornjiLevi.X + duzinaStr, duzinaStr));//donja granica
-            e.Graphics.DrawLine(pozadina, gornjiLevi, new Point(gornjiLevi.X, duzinaStr));//leva granica
-            e.Graphics.DrawLine(pozadina, new Point(gornjiLevi.X + duzinaStr, 0), new Point(gornjiLevi.X + duzinaStr, duzinaStr));//desna granica
+            g.DrawLine(pozadina, gornjiLevi, new Point(gornjiLevi.X + duzinaStr, gornjiLevi.Y));//gornja granica
+            g.DrawLine(pozadina, new Point(gornjiLevi.X, gornjiLevi.Y + duzinaStr), new Point(gornjiLevi.X + duzinaStr, gornjiLevi.Y + duzinaStr));//donja granica
+            g.DrawLine(pozadina, gornjiLevi, new Point(gornjiLevi.X, gornjiLevi.Y + duzinaStr));//leva granica
+            g.DrawLine(pozadina, new Point(gornjiLevi.X + duzinaStr, gornjiLevi.Y), new Point(gornjiLevi.X + duzinaStr, gornjiLevi.Y + duzinaStr));//desna granica
+        }
+        private void frmUvod_Paint(object sender, PaintEventArgs e)
+        {
+            int strKvad = duzinaStr / 20;
+            VeLicinaLokacijaSvega();
+            ucitajPozadinu(e.Graphics);
             if (pocetniMeni)
             {
                 lblIgraj.Visible = true;
@@ -100,7 +105,7 @@ namespace AgeomProj
                 a.X = centar.X - 5 * strKvad;
                 a.Y = centar.Y - 3 * strKvad;
                 b.X = centar.X - 5 * strKvad;
-                b.Y = centar.Y + 2 * strKvad;
+                b.Y = centar.Y + 3 * strKvad;
                 Pen trougaoIgraj = new Pen(Color.Black, 5);
                 Point[] crtanjeTrougao = { a, b, centar };
                 e.Graphics.DrawPolygon(trougaoIgraj, crtanjeTrougao);
@@ -127,13 +132,13 @@ namespace AgeomProj
 
         private void frmUvod_ResizeEnd(object sender, EventArgs e)
         {
-            GornjiLevi();
+            IzracunajGornjiLevi();
             this.Refresh();
         }
 
         private void frmUvod_SizeChanged(object sender, EventArgs e)
         {
-            GornjiLevi();
+            IzracunajGornjiLevi();
             this.Refresh();
         }
 
