@@ -23,7 +23,7 @@ namespace AgeomProj
         {
             InitializeComponent();
         }
-        public void GornjiLevi()
+        public void GornjiLevi()//RESITI PROBLEM SA RESIZEOM
         {
             Point gL = new Point();
             if (this.Width >= this.Height) 
@@ -117,13 +117,14 @@ namespace AgeomProj
             PointF c = new PointF();
             c.X = 0;
             c.Y = 0;
-            //Krug k = new Krug(c, 5);
-            //k.Nacrtaj(e.Graphics,centar,strKvad);
-            //Prava p = new Prava(c, 0, -6);
-            SlobodanZadatak joj = new SlobodanZadatak(null, new TimeSpan(0,0,0), " ", " ", FormaResenja.broj);
+            SlobodanZadatak joj = new SlobodanZadatak(null, new TimeSpan(0, 0, 0), " ", FormaResenja.broj, " ");
             SlobodanZadatak[] lele = new SlobodanZadatak[10];
             Nivo<SlobodanZadatak> n = new Nivo<SlobodanZadatak>(0, 0, 0, lele);
-         
+            //Krug k = new Krug(joj, c, 5);
+            //k.Nacrtaj(e.Graphics,centar,strKvad);
+            //Prava p = new Prava(joj,c, 5, 1);
+            //p.Nacrtaj(e.Graphics, centar, strKvad);
+
         }
 
         private void frmUvod_ResizeEnd(object sender, EventArgs e)

@@ -18,14 +18,12 @@ namespace AgeomProj
         public float A { get;}
         public float B { get;}
         public float C { get;}
-        public bool Eksplicitni {  get;}
         public Prava(SlobodanZadatak slobodanZadatak, PointF pozicijaEl, float n, float k)
         {
             SlobodanZadatak = slobodanZadatak;
             PozicijaEl = pozicijaEl;
             N = n;
             K = k;
-            Eksplicitni = true;
         }
         public Prava(SlobodanZadatak slobodanZadatak, PointF pozicijaEl, float a, float b, float c)
         {
@@ -35,7 +33,6 @@ namespace AgeomProj
             B = b;
             C = c;
             (K,N) = UEksplicitni();
-            Eksplicitni = false;
         }
         public (float, float) UEksplicitni()
         {
@@ -48,43 +45,38 @@ namespace AgeomProj
         {
             PointF A = new PointF();
             PointF B = new PointF();
-            if (Eksplicitni)
+
+            //ima 6 slucajeva za odredjivanje granicnih tacaka u odnosu na maxX i maxY i minX i minY
+            float presekDesno = IzracunajY(10), presekLevo = IzracunajY(-10);
+            float presekGore = IzracunajX(10), presekDole = IzracunajX(-10);
+
+            PointF[] preseci = new PointF[4];
+            preseci[0] = new PointF(10, IzracunajY(10));
+            preseci[1] = new PointF(-10, IzracunajY(-10));
+            preseci[2] = new PointF(IzracunajX(10), 10);
+            preseci[3] = new PointF(IzracunajX(-10), -10);
+            int br = 0;
+            for (int i = 0; i < 4; i++)
             {
-                //ima 6 slucajeva za odredjivanje granicnih tacaka u odnosu na maxX i maxY i minX i minY
-                float presekDesno = IzracunajY(10), presekLevo = IzracunajY(-10);
-                float presekGore = IzracunajX(10), presekDole = IzracunajX(-10);
-                PointF[] preseci = new PointF[4];
-                preseci[0] = new PointF(10, IzracunajY(10));
-                preseci[1] = new PointF(-10, IzracunajY(-10));
-                preseci[2] = new PointF(IzracunajX(10), 10);
-                preseci[3] = new PointF(IzracunajX(-10), -10);
-                int br = 0;
-                for (int i = 0; i < 4; i++)
+                if (preseci[i].X >= -10 && preseci[i].X <= 10 && preseci[i].Y >= -10 && preseci[i].Y <= 10)
                 {
-                    if (preseci[i].X >= -10 && preseci[i].X <= 10 && preseci[i].Y >= -10 && preseci[i].Y <= 10)
-                    {
-                        A.X = centar.X + preseci[i].X * strKvad;
-                        A.Y = centar.Y - preseci[i].Y * strKvad;
-                        br = i;
-                        break;
-                    }
+                    A.X = centar.X + preseci[i].X * strKvad;
+                    A.Y = centar.Y - preseci[i].Y * strKvad;
+                    br = i;
+                    break;
                 }
-                for (int i = br+1; i < 4; i++)
-                {
-                    if (preseci[i].X >= -10 && preseci[i].X <= 10 && preseci[i].Y >= -10 && preseci[i].Y <= 10)
-                    {
-                        B.X = centar.X + preseci[i].X * strKvad;
-                        B.Y = centar.Y - preseci[i].Y * strKvad;
-                        break;
-                    }
-                }
-                Pen olovka = new Pen(Color.Black, 3);
-                g.DrawLine(olovka,A,B);
             }
-            else
+            for (int i = br + 1; i < 4; i++)
             {
-                (double k, double n) = UEksplicitni(); 
+                if (preseci[i].X >= -10 && preseci[i].X <= 10 && preseci[i].Y >= -10 && preseci[i].Y <= 10)
+                {
+                    B.X = centar.X + preseci[i].X * strKvad;
+                    B.Y = centar.Y - preseci[i].Y * strKvad;
+                    break;
+                }
             }
+            Pen olovka = new Pen(Color.Black, 3);
+            g.DrawLine(olovka, A, B);
         }
         public float IzracunajY(float x)
         {
