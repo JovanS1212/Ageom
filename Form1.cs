@@ -117,5 +117,10 @@ namespace AgeomProj
                 this.Refresh();
             }
         }
+
+        private void btnFormule_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("Analiticka - formule.pdf");
+        }
     }
 }

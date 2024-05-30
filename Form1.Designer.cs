@@ -52,6 +52,7 @@
             this.btnFormule.TabIndex = 1;
             this.btnFormule.Text = "Formule";
             this.btnFormule.UseVisualStyleBackColor = false;
+            this.btnFormule.Click += new System.EventHandler(this.btnFormule_Click);
             // 
             // frmUvod
             // 
