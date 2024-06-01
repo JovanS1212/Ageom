@@ -15,8 +15,14 @@ namespace AgeomProj
     {
         public Point gornjiLevi;
         public int duzinaStr;
+        int visinaForme;
+        int sirinaForme;
         bool pocetniMeni;
-        public Point centar;
+        public Point centar; 
+        bool crtanjeUSvesci = false;
+        Point prethodna;
+        Point novaTacka;
+        Graphics sveska;
         Point a;//a je gornja tacka trougla igraj, b je donja
         Point b;
         public frmUvod()
@@ -38,6 +44,10 @@ namespace AgeomProj
             btnFormule.Left = centar.X + duzinaStr/2 - btnFormule.Width;
             btnFormule.Top = centar.Y + (int)(duzinaStr/2.5) - btnFormule.Height;  
             btnFormule.Font = new Font("Georgia", (int)(duzinaStr / 45));
+            pnlSveska.Left = 0;
+            pnlSveska.Top = 0;
+            pnlSveska.Width = sirinaForme;
+            pnlSveska.Height = visinaForme;
         }
         private void frmUvod_Paint(object sender, PaintEventArgs e)
         {
@@ -81,12 +91,16 @@ namespace AgeomProj
         private void frmUvod_ResizeEnd(object sender, EventArgs e)
         {
             RadnaPovrsina.IzracunajPolja(this, out gornjiLevi, out centar, out duzinaStr);
+            visinaForme = this.Height;
+            sirinaForme = this.Width;
             this.Refresh();
         }
 
         private void frmUvod_SizeChanged(object sender, EventArgs e)
         {
             RadnaPovrsina.IzracunajPolja(this, out gornjiLevi, out centar, out duzinaStr);
+            visinaForme = this.Height;
+            sirinaForme = this.Width;
             this.Refresh();
         }
 
@@ -102,16 +116,12 @@ namespace AgeomProj
         private void frmUvod_MouseClick(object sender, MouseEventArgs e)
         {
             int strKvad = duzinaStr / 20;//PODESITI STRKVADRATA U PROMENLJIVE
-            int ha = centar.X-a.X*strKvad;
-            int stra = b.Y - a.Y;
-            decimal povrsinaGlavnog = Math.Round(Convert.ToDecimal(stra * ha) / 2, 2);
-            Point m = new Point();
-            m.X = e.X;
-            m.Y = e.Y;
+            decimal povrsinaGlavnog = 15 * strKvad * strKvad;
+            Point m = e.Location;
             decimal p1 = PovrsinaTrougla(a, b, m);
             decimal p2 = PovrsinaTrougla(a, centar, m);
             decimal p3 = PovrsinaTrougla(centar, b, m);
-            if (povrsinaGlavnog == (p1 + p2 + p3))
+            if (Math.Abs(povrsinaGlavnog - (p1 + p2 + p3)) < (decimal)0.003) 
             {
                 pocetniMeni = false;
                 this.Refresh();
@@ -121,6 +131,44 @@ namespace AgeomProj
         private void btnFormule_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("Analiticka - formule.pdf");
+        }
+        private void btnSveska_Click(object sender, EventArgs e)
+        {
+            pnlSveska.Enabled = true;
+            pnlSveska.Visible = true;
+            sveska = pnlSveska.CreateGraphics();
+        }
+
+        private void pnlSveska_MouseDown(object sender, MouseEventArgs e)
+        {
+            crtanjeUSvesci = true;
+            prethodna = e.Location;
+        }
+
+        private void pnlSveska_MouseUp(object sender, MouseEventArgs e)
+        {
+            crtanjeUSvesci = false;
+        }
+
+        private void pnlSveska_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (crtanjeUSvesci)
+            {
+                novaTacka = e.Location;
+                sveska.DrawLine(Pens.Black, prethodna, novaTacka);
+                prethodna = novaTacka;
+            }
+        }
+        private void pnlSveska_Paint(object sender, PaintEventArgs e)
+        {
+            for (int i = 0; i <= pnlSveska.Height; i += duzinaStr/20) 
+            {
+                e.Graphics.DrawLine(Pens.Gray, 0, i, pnlSveska.Width, i);
+            }
+            for (int i = 0; i <= pnlSveska.Width; i += duzinaStr/20)
+            {
+                e.Graphics.DrawLine(Pens.Gray, i, 0, i, pnlSveska.Height);
+            }
         }
     }
 }
