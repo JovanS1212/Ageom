@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace AgeomProj
 {
-    internal static class RadnaPovrsina
+    public static class RadnaPovrsina
     {
         public static void IzracunajPolja(Form forma, out Point gornjiLevi,out Point centar, out int duzinaStr)
         {
