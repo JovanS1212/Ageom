@@ -7,15 +7,14 @@ using System.Threading.Tasks;
 
 namespace AgeomProj
 {
-    internal class Krug : IElementSZ
+    public class Krug : IElementSZ
     {
         public PointF PozicijaEl { get; set; }
         public float R { get; set; }
         public SlobodanZadatak SlobodanZadatak { get; set; }
 
-        public Krug(SlobodanZadatak slobodanZadatak,PointF centar, float r) 
+        public Krug(PointF centar, float r) 
         {
-            SlobodanZadatak = slobodanZadatak;
             PozicijaEl = centar;
             R = r;
         }   

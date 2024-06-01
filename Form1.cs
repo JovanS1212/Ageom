@@ -18,11 +18,16 @@ namespace AgeomProj
         int visinaForme;
         int sirinaForme;
         bool pocetniMeni;
+<<<<<<< HEAD
         public Point centar; 
         bool crtanjeUSvesci = false;
         Point prethodna;
         Point novaTacka;
         Graphics sveska;
+=======
+        public Point centar;
+        public Form formaSlobZadatak;
+>>>>>>> 5c3c3af7d756e709ac79c2181c975b19605f679c
         Point a;//a je gornja tacka trougla igraj, b je donja
         Point b;
         public frmUvod()
@@ -33,6 +38,13 @@ namespace AgeomProj
         {
             RadnaPovrsina.IzracunajPolja(this,out gornjiLevi,out centar,out duzinaStr);
             pocetniMeni = true;
+
+            //ODAVDE TESTIRAJTE NIVOE
+            SlobodanZadatak joj = new SlobodanZadatak(null, new TimeSpan(0, 0, 0), " ", FormaResenja.broj, " ", new Krug(new Point(2,2), 5), new Krug(new Point(-3, 2), 5));
+            SlobodanZadatak[] lele = new SlobodanZadatak[10];
+            Nivo<SlobodanZadatak> n = new Nivo<SlobodanZadatak>(0, 0, 0, joj);
+            formaSlobZadatak = new frmSlobodanNivo(n);
+            formaSlobZadatak.Show();
         }
         public void VeLicinaLokacijaSvega()
         {
@@ -78,16 +90,14 @@ namespace AgeomProj
             PointF c = new PointF();
             c.X = 0;
             c.Y = 0;
-            SlobodanZadatak joj = new SlobodanZadatak(null, new TimeSpan(0, 0, 0), " ", FormaResenja.broj, " ");
-            SlobodanZadatak[] lele = new SlobodanZadatak[10];
-            Nivo<SlobodanZadatak> n = new Nivo<SlobodanZadatak>(0, 0, 0, lele);
-            Krug k = new Krug(joj, c, 5);
+            Krug k = new Krug(c, 5);
             k.Nacrtaj(e.Graphics,centar,strKvad);
-            Prava p = new Prava(joj,c, 0, 1);
+            Prava p = new Prava(c, 0, 1);
             p.Nacrtaj(e.Graphics, centar, strKvad);
 
         }
 
+<<<<<<< HEAD
         private void frmUvod_ResizeEnd(object sender, EventArgs e)
         {
             RadnaPovrsina.IzracunajPolja(this, out gornjiLevi, out centar, out duzinaStr);
@@ -102,6 +112,16 @@ namespace AgeomProj
             visinaForme = this.Height;
             sirinaForme = this.Width;
             this.Refresh();
+=======
+
+        private void frmUvod_SizeChanged(object sender, EventArgs e)
+        {
+            if (WindowState != FormWindowState.Minimized)
+            {
+                RadnaPovrsina.IzracunajPolja(this, out gornjiLevi, out centar, out duzinaStr);
+                this.Refresh();
+            }
+>>>>>>> 5c3c3af7d756e709ac79c2181c975b19605f679c
         }
 
         private void lblIgraj_Click(object sender, EventArgs e)
@@ -115,9 +135,19 @@ namespace AgeomProj
         }
         private void frmUvod_MouseClick(object sender, MouseEventArgs e)
         {
+<<<<<<< HEAD
             int strKvad = duzinaStr / 20;//PODESITI STRKVADRATA U PROMENLJIVE
             decimal povrsinaGlavnog = 15 * strKvad * strKvad;
             Point m = e.Location;
+=======
+            int strKvad = duzinaStr / 20;
+            int ha = centar.X-a.X;
+            int stra = b.Y - a.Y;
+            decimal povrsinaGlavnog = Math.Round(Convert.ToDecimal(stra * ha) / 2, 2);
+            Point m = new Point();
+            m.X = e.X;
+            m.Y = e.Y;
+>>>>>>> 5c3c3af7d756e709ac79c2181c975b19605f679c
             decimal p1 = PovrsinaTrougla(a, b, m);
             decimal p2 = PovrsinaTrougla(a, centar, m);
             decimal p3 = PovrsinaTrougla(centar, b, m);

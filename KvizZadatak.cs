@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AgeomProj
 {
-    internal class KvizZadatak : Zadatak,IVrsteZadataka
+    public class KvizZadatak : Zadatak
     {
         public KvizZadatak(string pitanje, TimeSpan vreme, string odgovor) : base(pitanje, vreme, odgovor)
         {

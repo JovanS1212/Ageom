@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AgeomProj
 {
-    internal interface IElementSZ : ICrtanje
+    public interface IElementSZ : ICrtanje
     {
         SlobodanZadatak SlobodanZadatak { get; set; }
     }

@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace AgeomProj
 {
-    internal class Prava : IElementSZ//abc implicitni, kn eksplicitni
+    public class Prava : IElementSZ//abc implicitni, kn eksplicitni
     {
         public SlobodanZadatak SlobodanZadatak { get; set; }
         public PointF PozicijaEl { get; set; }
@@ -18,16 +18,14 @@ namespace AgeomProj
         public float A { get;}
         public float B { get;}
         public float C { get;}
-        public Prava(SlobodanZadatak slobodanZadatak, PointF pozicijaEl, float n, float k)
+        public Prava( PointF pozicijaEl, float n, float k)
         {
-            SlobodanZadatak = slobodanZadatak;
             PozicijaEl = pozicijaEl;
             N = n;
             K = k;
         }
-        public Prava(SlobodanZadatak slobodanZadatak, PointF pozicijaEl, float a, float b, float c)
+        public Prava(PointF pozicijaEl, float a, float b, float c)
         {
-            SlobodanZadatak = slobodanZadatak;
             PozicijaEl = pozicijaEl;
             A = a;
             B = b;

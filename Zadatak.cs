@@ -10,7 +10,7 @@ using System.Timers;
 
 namespace AgeomProj
 {
-    internal abstract class Zadatak
+    public abstract class Zadatak
     {
         public string Pitanje {  get; }
         public TimeSpan VremeZadatak { get; }
